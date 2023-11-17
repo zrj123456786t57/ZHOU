@@ -1,0 +1,45 @@
+package main
+
+import (
+	"fmt"
+)
+
+type Product struct {
+	Name  string
+	Price float64
+	Stock int
+	Type  string
+}
+type Inventory interface {
+	CheckStock() int
+	UpdateStock(int)
+	PrintStock()
+}
+
+func (p *Product) CheckStock() int {
+	return p.Stock
+}
+func (p *Product) UpdateStock(stock int) {
+	p.Stock = stock
+}
+func (p *Product) PrintStock() {
+	fmt.Printf("商品名称：%s, 价格：%f, 库存数量：%d, 类型：%s\n", p.Name, p.Price, p.Stock, p.Type)
+}
+
+type ElectronicProduct struct {
+	Product
+	Brand string
+	Model string
+}
+
+func (ep *ElectronicProduct) PrintBrandModel() {
+	fmt.Printf("品牌：%s, 型号：%s\n", ep.Brand, ep.Model)
+}
+func main() {
+	product := &Product{Name: "电视", Price: 5000, Stock: 10, Type: "电子产品"}
+	fmt.Println("商品名称：", product.Name)
+	fmt.Println("商品价格：", product.Price)
+	fmt.Println("商品库存：", product.CheckStock())
+	product.UpdateStock(5)
+	product.PrintStock()
+}
